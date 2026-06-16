@@ -48,8 +48,12 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://realtime-chat-backend-5kgp.onrender.com",
+    origin: [
+      "http://localhost:5173",
+      "https://realtime-chat-frontend-one.vercel.app"
+    ],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -57,7 +61,15 @@ const io = new Server(server, {
 // MIDDLEWARE
 // ======================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://realtime-chat-frontend-one.vercel.app"
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // ======================
